@@ -14,8 +14,6 @@
     <property name="ReportName" value="TestReport" />
     <property name="jmeter.result.jtlName" value="${jmeter.result.jtl.dir}/${ReportName}${time}.jtl" />
     <property name="jmeter.result.htmlName" value="${jmeter.result.html.dir}/${ReportName}${time}.html" />
-    <!-- 电脑地址 -->
-    <!-- <property name="ComputerName" value="zhaowei" /> -->
     
     <target name="all">
         <antcall target="test" />
@@ -50,5 +48,4 @@
             </fileset>
         </copy>
     </target>
-    <!-- 发送邮件 -->
 </project>
