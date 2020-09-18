@@ -18,7 +18,7 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.num_threads">3</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -31,7 +31,7 @@
             <collectionProp name="Arguments.arguments">
               <elementProp name="name" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">python</stringProp>
+                <stringProp name="Argument.value">${name}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">name</stringProp>
@@ -53,7 +53,98 @@
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree/>
+        <hashTree>
+          <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="用户参数" enabled="true">
+            <collectionProp name="UserParameters.names">
+              <stringProp name="3373707">name</stringProp>
+            </collectionProp>
+            <collectionProp name="UserParameters.thread_values">
+              <collectionProp name="1292244750">
+                <stringProp name="-973197092">python</stringProp>
+              </collectionProp>
+              <collectionProp name="-1314774737">
+                <stringProp name="3254818">java</stringProp>
+              </collectionProp>
+              <collectionProp name="58112612">
+                <stringProp name="3304">go</stringProp>
+              </collectionProp>
+            </collectionProp>
+            <boolProp name="UserParameters.per_iteration">false</boolProp>
+          </UserParameters>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="Unicode编码" enabled="true">
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="script">String s=new String(prev.getResponseData(),&quot;UTF-8&quot;);
+char aChar;
+int len= s.length();
+StringBuffer outBuffer=new StringBuffer(len);
+for(int x =0; x &lt;len;){
+aChar= s.charAt(x++);
+if(aChar==&apos;\\&apos;){
+aChar= s.charAt(x++);
+if(aChar==&apos;u&apos;){
+int value =0;
+for(int i=0;i&lt;4;i++){
+aChar= s.charAt(x++);
+switch(aChar){
+case&apos;0&apos;:
+case&apos;1&apos;:
+case&apos;2&apos;:
+case&apos;3&apos;:
+case&apos;4&apos;:
+case&apos;5&apos;:
+case&apos;6&apos;:
+case&apos;7&apos;:
+case&apos;8&apos;:
+case&apos;9&apos;:
+value=(value &lt;&lt;4)+aChar-&apos;0&apos;;
+break;
+case&apos;a&apos;:
+case&apos;b&apos;:
+case&apos;c&apos;:
+case&apos;d&apos;:
+case&apos;e&apos;:
+case&apos;f&apos;:
+value=(value &lt;&lt;4)+10+aChar-&apos;a&apos;;
+break;
+case&apos;A&apos;:
+case&apos;B&apos;:
+case&apos;C&apos;:
+case&apos;D&apos;:
+case&apos;E&apos;:
+case&apos;F&apos;:
+value=(value &lt;&lt;4)+10+aChar-&apos;A&apos;;
+break;
+default:
+throw new IllegalArgumentException(
+&quot;Malformed   \\uxxxx  encoding.&quot;);}}
+outBuffer.append((char) value);}else{
+if(aChar==&apos;t&apos;)
+aChar=&apos;\t&apos;;
+else if(aChar==&apos;r&apos;)
+aChar=&apos;\r&apos;;
+else if(aChar==&apos;n&apos;)
+aChar=&apos;\n&apos;;
+else if(aChar==&apos;f&apos;)
+aChar=&apos;\f&apos;;
+outBuffer.append(aChar);}}else
+outBuffer.append(aChar);}
+prev.setResponseData(outBuffer.toString());</stringProp>
+          </BeanShellPostProcessor>
+          <hashTree/>
+        </hashTree>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="察看结果树" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
