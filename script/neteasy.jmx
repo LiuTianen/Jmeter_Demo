@@ -152,21 +152,21 @@
             <collectionProp name="Arguments.arguments">
               <elementProp name="count" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">${__Random(3,20,)}</stringProp>
+                <stringProp name="Argument.value">${__CSVRead(../data/duanzi.csv,0)}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">count</stringProp>
               </elementProp>
               <elementProp name="page" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">${__Random(3,20,)}</stringProp>
+                <stringProp name="Argument.value">${__CSVRead(../data/duanzi.csv.csv,1)}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">page</stringProp>
               </elementProp>
               <elementProp name="type" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">${type}</stringProp>
+                <stringProp name="Argument.value">${__CSVRead(../data/duanzi.csv.csv,2)}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">type</stringProp>
